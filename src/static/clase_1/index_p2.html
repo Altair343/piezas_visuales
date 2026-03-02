@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .canvas{
+            border: 1px red solid;
+        }
+    </style>
+    <canvas width="700" height="700" class="canvas"></canvas>
+    <script>
+        let canvas =document.querySelector('canvas');
+        let context = canvas.getContext('2d');
+
+        // Listas
+        let year = [2042, 2052, 2064];
+        let menu = ["salad", "pasta", "steak"];
+
+        // bucles
+        for(let i = 0; i < year.length; i++){
+            console.log(`In the year ${year[i]} I will eat ${menu[i]}`);
+        }
+
+        for(let i = 0; i < 4; i++){
+            year.push(year[i] + 1);
+        }
+        console.log(year);
+
+        // Ejemplo 5
+        for(let i = 0; i < 10; i++){
+            context.beginPath();
+            context.rect(80+i*5,80+i*7,100+i,100-i);
+            context.stroke();
+        }
+
+        for(let i = 0; i < 5; i++){
+            let width = 40;
+            let height = 60;
+            let gab = 20;
+            let x = 100 + (width + gab) * i;
+            let y = 300;
+            context.beginPath();
+            context.lineWidth = 3;
+            context.rect(x, y, width, height);
+            context.stroke();
+        }
+
+        for(let i = 0; i < 5; i++){
+            for(let j = 0; j < 5; j++){
+                let width = 40;
+                let height = 40;
+                let gab = 20;
+                let x = 100 + (width + gab) * i;
+                let y = 400 + (height + gab) * j;
+                context.beginPath();
+                context.lineWidth = 3;
+                context.rect(x, y, width, height);
+                context.stroke();
+            }
+        }
+
+
+    </script>
+</body>
+</html>

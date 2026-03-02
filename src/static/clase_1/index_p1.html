@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,33 +9,18 @@
 <body>
     <style>
         .canvas{
-            border: 1px black solid;
+            border: 1px red solid;
         }
     </style>
     <canvas width="700" height="700" class="canvas"></canvas>
     <script>
-        var x = 5;
-        var canvas =document.querySelector('canvas');
-        var context = canvas.getContext('2d');
-
-        // Ejemplo 1
-        function doSomething(param){
-            console.log(param);
-        }
-        doSomething("Hello world");
-
         // Ejemplo 2
-        function operation(numer_1, number_2){
-            return numer_1 + number_2;
-        }
-        var add = operation(3,5);
-        console.log(add);
-
-        // Ejemplo 3
+        let canvas =document.querySelector('canvas');
+        let context = canvas.getContext('2d');
         context.fillStyle = 'blue';
         context.fillRect(100,100,400,400);
 
-        // Ejemplo 4
+        // Ejemplo 3
         context.lineWidth = 4;
         context.beginPath();
         context.rect(80,80,380,380);
@@ -45,6 +30,26 @@
         context.beginPath();
         context.arc(300,300,50,0,Math.PI * 2);
         context.stroke();
+
+        // Ejemplo 1
+        let year = 2042;
+        let dinner = "salad"
+        let sentence = `In the year ${year} I will eat ${dinner}`;
+
+        function saySomething(param){
+            console.log(param);
+        }
+        saySomething(sentence);
+
+        function add(numer_1, number_2){
+            return numer_1 + number_2;
+        }
+
+        let result = add(5,7);
+        console.log(result);
+
+        let multiply = (number_1, number_2) => number_1 * number_2;
+        console.log(multiply(5,7));
 
     </script>
 </body>
