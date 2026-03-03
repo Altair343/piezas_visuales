@@ -21,22 +21,6 @@ const sketch = ({ context, width, height }) => {
         context.fillRect(0, 0, width, height);
         context.lineWidth = width * 0.01;
 
-
-        for (let i = 0; i < agents.length; i++) {
-            const agent = agents[i];
-            for (let j = i + 1; j < agents.length; j++) {
-                const other = agents[j];
-                const dist = agent.pos.getDistance(other.pos);
-                if (dist > 200) continue;
-
-                context.lineWidth = utils.math.mapRange(dist, 0, 200, 12, 1);
-                context.beginPath();
-                context.moveTo(agent.pos.x, agent.pos.y);
-                context.lineTo(other.pos.x, other.pos.y);
-                context.stroke();
-            }
-        }
-
         agents.forEach(agent =>{
             agent.update();
             agent.draw(context);
@@ -51,12 +35,6 @@ class Vector {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-    }
-
-    getDistance(other) {
-        const dx = this.x - other.x;
-        const dy = this.y - other.y;
-        return Math.sqrt(dx * dx + dy * dy);
     }
 };
 
