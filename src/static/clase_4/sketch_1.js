@@ -1,14 +1,12 @@
 import canvasSketch from 'canvas-sketch';
 import utils from 'canvas-sketch-util';
-// import { Pane } from 'tweakpane';
 
 const settings = {
-    dimensions: [ 1080, 1080 ],
-    animate: true
+    dimensions: [ 1080, 1080 ]
 };
 
 const sketch = () => {
-    return ({ context, width, height ,frame}) => {
+    return ({ context, width, height }) => {
         context.fillStyle = 'white';
         context.fillRect(0, 0, width, height);
         context.lineWidth = width * 0.01;
@@ -34,24 +32,20 @@ const sketch = () => {
             const w = cellWidth * 0.8;
             const h = cellHeight * 0.8;
 
-            const noise = utils.random.noise2D(x + frame * 10, y, 0.001);
-            const angle = noise * Math.PI * 0.2;
-
-            // const scale =  (noise + 1) / 2 *30;
-            // const scale =  (noise * 0.5 + 0.5) * 30;
-            const scale = utils.math.mapRange(noise, -1, 1, 1, 30);
-
             context.save();
-            context.lineWidth = scale;
+            context.lineWidth = 4;
             context.translate(x, y);
             context.translate(marginX, marginY);
             context.translate(cellWidth * 0.5, cellHeight * 0.5);
-            context.rotate(angle);
             context.beginPath();
             context.moveTo(w * -0.5, 0);
             context.lineTo(w * 0.5, 0);
             context.stroke();
 
+            if (Math.random() > 0.5) {
+                context.fillStyle = 'black';
+                context.fillRect(0, 0, cellWidth, cellHeight);
+            }
 
             context.restore();
         }

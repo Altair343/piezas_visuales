@@ -1,6 +1,5 @@
 import canvasSketch from 'canvas-sketch';
 import utils from 'canvas-sketch-util';
-// import { Pane } from 'tweakpane';
 
 const settings = {
     dimensions: [ 1080, 1080 ],
