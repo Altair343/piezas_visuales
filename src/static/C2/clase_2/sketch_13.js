@@ -2,18 +2,13 @@ import canvasSketch from 'canvas-sketch';
 import utils from 'canvas-sketch-util';
 import risoColors from 'riso-colors';
 
-const seed = utils.random.getRandomSeed();
-
 const settings = {
     dimensions: [ 1080, 1080 ],
     // animate: true,
-    fps: 60,
-    name:seed
+    fps: 60
 };
 
 const sketch = ({ context, width, height }) => {
-    utils.random.setSeed(seed);
-
     let x,y, w, h, fill, stroke, blend;
     const num = 40;
     const degrees = -30;
@@ -34,28 +29,14 @@ const sketch = ({ context, width, height }) => {
 
             fill = utils.random.pick(rectColors).hex;
             stroke = utils.random.pick(rectColors).hex;
+            // blend = utils.random.pick(['screen','overlay', 'multiply','lighten','source-over','darken']);
             blend = ( utils.random.value() > 0.5) ? 'overlay' : 'source-over';
             rects.push({x,y,w,h,fill, stroke, blend});
     }
 
-    const mask = {
-        radius : width * 0.4,
-        sides : 3,
-        x: width * 0.5,
-        y: height * 0.58
-
-    }
-
-    return ({ context, width, height}) => {
+    return ({ context, width, height , frame}) => {
         context.fillStyle = bgColor;
         context.fillRect(0, 0, width, height);
-
-        context.save();
-        context.translate(mask.x, mask.y);
-
-        drawPolygon({context, radius: mask.radius, sides: mask.sides});
-        context.restore();
-        context.clip();
 
         rects.forEach(rect => {
             const {x,y,w,h,fill, stroke, blend} = rect;
@@ -88,19 +69,9 @@ const sketch = ({ context, width, height }) => {
             context.strokeStyle = 'black';
             context.stroke();
             context.restore();
+
+
         });
-        context.restore();
-
-        context.save();
-        context.translate(mask.x, mask.y);
-        context.lineWidth = 15;
-
-        drawPolygon({context, radius: mask.radius - context.lineWidth, sides: mask.sides});
-        context.globalCompositeOperation = 'color-burn';
-        context.strokeStyle = rectColors[0].hex;
-        context.stroke();
-
-        context.restore();
     };
 };
 
@@ -120,18 +91,6 @@ const drawSkewedRect = ({context, w = 600, h = 200, degrees = 45}) => {
     context.closePath();
     context.stroke();
     context.restore();
-}
-
-const drawPolygon = ({context,radius = 100, sides= 3}) => {
-    const slice = Math.PI * 2 / sides;
-    context.beginPath();
-    context.moveTo(0,-radius);
-
-    for (let i = 1; i < sides; i++) {
-        let theta = i * slice - Math.PI  * 0.5;
-        context.lineTo(Math.cos(theta) * radius, Math.sin(theta) * radius);
-    }
-    context.closePath();
 }
 
 canvasSketch(sketch, settings);

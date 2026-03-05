@@ -43,6 +43,20 @@ Plantillas en línea
 - https://codesandbox.io/p/sandbox/canvas-sketch-default-uz11b
 
 ### Clase 3:
+Lección "Dibujar un rectángulo"
+- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/save#drawing_state
+
+Lección "Agregar colores"
+- https://github.com/mattdesl/canvas-sketch-util/blob/master/docs/color.md
+- https://www.stencil.wiki/colors
+- https://github.com/mattdesl/riso-colors
+- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+
+Lección "Máscara de recorte"
+- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clip
+
+Lección "Configuración de una semilla aleatoria"
+- https://github.com/mattdesl/canvas-sketch-util/blob/master/docs/random.md
 
 ### Clase 4
 

@@ -2,17 +2,15 @@ import canvasSketch from 'canvas-sketch';
 import utils from 'canvas-sketch-util';
 import risoColors from 'riso-colors';
 
-const seed = utils.random.getRandomSeed();
-
 const settings = {
     dimensions: [ 1080, 1080 ],
     // animate: true,
-    fps: 60,
-    name:seed
+    fps: 60
 };
 
 const sketch = ({ context, width, height }) => {
-    utils.random.setSeed(seed);
+    utils.random.setSeed(512);
+    // utils.random.setSeed('2342sad_4!@#$&^$');
 
     let x,y, w, h, fill, stroke, blend;
     const num = 40;

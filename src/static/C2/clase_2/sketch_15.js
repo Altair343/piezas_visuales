@@ -2,18 +2,13 @@ import canvasSketch from 'canvas-sketch';
 import utils from 'canvas-sketch-util';
 import risoColors from 'riso-colors';
 
-const seed = utils.random.getRandomSeed();
-
 const settings = {
     dimensions: [ 1080, 1080 ],
     // animate: true,
-    fps: 60,
-    name:seed
+    fps: 60
 };
 
 const sketch = ({ context, width, height }) => {
-    utils.random.setSeed(seed);
-
     let x,y, w, h, fill, stroke, blend;
     const num = 40;
     const degrees = -30;
@@ -42,11 +37,11 @@ const sketch = ({ context, width, height }) => {
         radius : width * 0.4,
         sides : 3,
         x: width * 0.5,
-        y: height * 0.58
+        y: height * 0.5
 
     }
 
-    return ({ context, width, height}) => {
+    return ({ context, width, height , frame}) => {
         context.fillStyle = bgColor;
         context.fillRect(0, 0, width, height);
 
@@ -54,6 +49,10 @@ const sketch = ({ context, width, height }) => {
         context.translate(mask.x, mask.y);
 
         drawPolygon({context, radius: mask.radius, sides: mask.sides});
+
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+        context.stroke();
         context.restore();
         context.clip();
 
@@ -89,18 +88,6 @@ const sketch = ({ context, width, height }) => {
             context.stroke();
             context.restore();
         });
-        context.restore();
-
-        context.save();
-        context.translate(mask.x, mask.y);
-        context.lineWidth = 15;
-
-        drawPolygon({context, radius: mask.radius - context.lineWidth, sides: mask.sides});
-        context.globalCompositeOperation = 'color-burn';
-        context.strokeStyle = rectColors[0].hex;
-        context.stroke();
-
-        context.restore();
     };
 };
 
