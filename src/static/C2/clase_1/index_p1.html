@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .canvas{
+            border: 1px red solid;
+        }
+    </style>
+    <script>
+        const canvas = document.createElement('canvas');
+        canvas.width = 300;
+        canvas.height = 300;
+        // canvas.classList.add('canvas');
+        document.body.appendChild(canvas);
+        const context = canvas.getContext('2d');
+        context.fillStyle = 'blue';
+
+        // Set line width and color
+        context.lineWidth = 10;
+        context.strokeStyle = 'black';
+
+        // Wall
+        context.strokeRect(75, 140, 150, 110);
+
+        // Draw a filled rectangle
+        context.fillRect(130, 190, 40, 60);
+
+        // Rof
+        context.beginPath();
+        context.moveTo(50, 140);
+        context.lineTo(150, 60);
+        context.lineTo(250, 140);
+        context.closePath();
+        context.stroke();
+
+    </script>
+</body>
+</html>
