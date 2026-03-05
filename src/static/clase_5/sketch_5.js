@@ -3,7 +3,7 @@ import utils from 'canvas-sketch-util';
 
 const settings = {
     dimensions: [ 1080, 1080 ],
-    // animate: true
+    animate: true
 };
 
 let text = 'A';
@@ -29,7 +29,7 @@ const sketch = ({ context, width, height ,frame}) => {
         typeContext.fillRect(0, 0, cols, rows);
         typeContext.lineWidth = cols * 0.01;
 
-        fontSize = cols ;
+        fontSize = cols;
         typeContext.fillStyle = 'white';
         typeContext.font = `${fontSize}px "${fontFamily}"`;
         typeContext.textBaseline = 'middle';
@@ -55,13 +55,9 @@ const sketch = ({ context, width, height ,frame}) => {
         typeContext.restore();
 
         const typeData = typeContext.getImageData(0, 0, cols, rows).data;
-        
-        context.fillStyle = 'black';
-        context.fillRect(0, 0, width, height);
-        context.textBaseline = 'middle';
-        context.textAlign = 'center';
-        
         context.drawImage(typeCanvas, 0, 0);
+
+
         for (let i = 0; i < numCells; i++) {
             const col = i % cols;
             const row = Math.floor(i / cols);
@@ -74,34 +70,13 @@ const sketch = ({ context, width, height ,frame}) => {
             const b = typeData[i * 4 + 2];
             const a = typeData[i * 4 + 3];
 
-            const glyph = getGlyph(r);
-
-            context.font = `${cell * 1.7}px "${fontFamily}"`;
-            if (Math.random() < 0.1) context.font = `${cell * 4}px "${fontFamily}"`;
-
-            context.fillStyle = 'white';
+            context.fillStyle = `rgba(${r},${g},${b},${a})`;
             context.save();
             context.translate(x, y);
-            context.translate(cell * 0.5, cell * 0.5);
-
-            // context.fillRect(0, 0, cell, cell);
-
-            context.fillText(glyph, 0, 0);
-
-
+            context.fillRect(0, 0, cell, cell);
             context.restore();
         }
     };
-};
-
-const getGlyph = (v) => {
-    if (v < 50) return '';
-    if (v < 100) return '.';
-    if (v < 150) return '-';
-    if (v < 200) return '+';
-
-    const glyphs = ['_', '=',' ','/','Alt']
-    return utils.random.pick(glyphs);
 };
 
 canvasSketch(sketch, settings);

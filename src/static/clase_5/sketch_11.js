@@ -100,7 +100,7 @@ const getGlyph = (v) => {
     if (v < 150) return '-';
     if (v < 200) return '+';
 
-    const glyphs = ['_', '=',' ','/','Alt']
+    const glyphs = ['_', '=',' ','/']
     return utils.random.pick(glyphs);
 };
 
