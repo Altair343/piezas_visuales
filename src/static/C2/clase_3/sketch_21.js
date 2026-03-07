@@ -4,8 +4,7 @@ import colormap from 'colormap';
 
 const settings = {
     dimensions: [ 1080, 1080 ],
-    animate:true,
-    // fps:60
+    animate:true
 };
 
 
@@ -26,8 +25,8 @@ const sketch = ({ context, width, height }) => {
 
     let x, y, n, lineWidth, color;
     const points = [];
-    let frequency = 0.009;
-    let amplitude = 70;
+    let frequency = 0.002;
+    let amplitude = 90;
 
     const colors = colormap({
         colormap: 'summer',
@@ -39,17 +38,15 @@ const sketch = ({ context, width, height }) => {
     for(let i = 0; i < numCells; i++){
         x = (i % cols * cellW);
         y  = Math.floor(i / cols) * cellH;
-
         n = utils.random.noise2D(x, y, frequency, amplitude);
-        // x += n
-        // y += n
-
+        x += n
+        y += n
         lineWidth = utils.math.mapRange(n, -amplitude, amplitude, 0, 5);
         color = colors[Math.floor(utils.math.mapRange(n, -amplitude, amplitude, 0, amplitude))];
         points.push(new Point(x,y, lineWidth, color));
     }
 
-    return ({ context, width, height, frame }) => {
+    return ({ context, width, height }) => {
         context.fillStyle = 'black';
         context.fillRect(0, 0, width, height);
 
@@ -58,13 +55,6 @@ const sketch = ({ context, width, height }) => {
         context.translate(cellW * 0.5, cellH * 0.5);
         context.strokeStyle = 'blue';
         context.lineWidth = 4;
-
-        // update points
-        points.forEach(point => {
-            const n = utils.random.noise2D(point.ix + frame, point.iy, frequency, amplitude);
-            point.x = point.ix + n;
-            point.y = point.iy + n;
-        });
 
         let lastX, lastY;
 
@@ -106,9 +96,6 @@ class Point{
         this.y = y;
         this.lineWidth = lineWidth;
         this.color = color;
-
-        this.ix = x;
-        this.iy = y;
     }
 
     draw(context){

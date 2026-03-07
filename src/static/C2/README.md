@@ -59,6 +59,30 @@ Lección "Configuración de una semilla aleatoria"
 - https://github.com/mattdesl/canvas-sketch-util/blob/master/docs/random.md
 
 ### Clase 4
+Lección "Dibujar una curva cuadrática"
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo
+- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo
+
+Lección "Interacción del cursor"
+- https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+- https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener
+- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
+- https://www.mathsisfun.com/pythagoras.html
+
+Lección "Puntos Múltiples"
+- https://natzkestore.com/
+
+Lección "Creación de una cuadrícula"
+- https://github.com/mattdesl/canvas-sketch-util/blob/master/docs/random.md
+- https://web.archive.org/web/20160530124230/http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
+
+Lección "Segmentos"
+- https://github.com/bpostlethwaite/colormap
+
+Lección "Animación"
+- https://github.com/mattdesl/canvas-sketch/blob/master/docs/exporting-artwork.md
+- https://www.npmjs.com/package/@ffmpeg-installer/ffmpeg
 
 ### Clase 5
 

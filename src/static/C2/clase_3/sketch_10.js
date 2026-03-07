@@ -1,0 +1,131 @@
+import canvasSketch from 'canvas-sketch';
+
+const settings = {
+    dimensions: [ 1080, 1080 ],
+    animate:true
+};
+
+let canvasAlt;
+let points;
+
+const sketch = ({canvas}) => {
+
+    points = [
+        new Point(200, 540),
+        new Point(400, 300, true),
+        new Point(880, 540),
+        new Point(600, 700, true),
+        new Point(640, 900),
+    ];
+
+    canvas.addEventListener('mousedown', onMouseDown);
+    canvasAlt = canvas;
+
+    return ({ context, width, height }) => {
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, width, height);
+
+
+        // Draw line rectly between points
+        context.strokeStyle = '#999';
+        context.beginPath();
+        context.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++){
+            context.lineTo(points[i].x, points[i].y);
+        }
+        context.stroke();
+
+        // Draw quadratic curve between points
+        // context.beginPath();
+        // context.moveTo(points[0].x, points[0].y);
+        // for (let i = 1; i < points.length; i += 2){
+        //     context.quadraticCurveTo(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
+        // }
+        // context.stroke();
+
+        context.beginPath();
+        for (let i = 0; i < points.length - 1; i++){
+            const current = points[i+ 0];
+            const next = points[i+ 1];
+            const midX = current.x + (next.x - current.x) * 0.5;
+            const midY = current.y + (next.y - current.y) * 0.5;
+
+            // context.beginPath();
+            // context.arc(midX, midY, 5, 0, Math.PI * 2);
+            // context.fillStyle = 'blue';
+            // context.fill();
+
+            if(i === 0)context.moveTo(current.x, current.y);
+            else if(i == points.length - 2) context.quadraticCurveTo(current.x, current.y, next.x, next.y);
+            else context.quadraticCurveTo(current.x, current.y, midX, midY);
+        }
+        context.lineWidth = 2;
+        context.strokeStyle = 'blue';
+        context.stroke();
+
+
+        points.forEach(point => point.draw(context));
+    };
+};
+
+
+const onMouseDown = (e) => {
+    globalThis.addEventListener('mousemove', onMouseMove);
+    globalThis.addEventListener('mouseup', onMouseUp);
+
+    const x = (e.offsetX / canvasAlt.offsetWidth) * canvasAlt.width;
+    const y = (e.offsetY / canvasAlt.offsetHeight) * canvasAlt.height;
+
+    let hit = false;
+    points.forEach(point => {
+        point.isDragging = point.hitTest(x,y);
+        if (point.isDragging) hit = true;
+    });
+
+    if(!hit) points.push(new Point(x,y));
+};
+
+const onMouseMove = (e) => {
+    const x = (e.offsetX / canvasAlt.offsetWidth) * canvasAlt.width;
+    const y = (e.offsetY / canvasAlt.offsetHeight) * canvasAlt.height;
+
+    points.forEach(point => {
+        if(point.isDragging){
+            point.x = x;
+            point.y = y;
+        }
+    });
+};
+
+const onMouseUp = (e) => {
+    globalThis.removeEventListener('mousemove', onMouseMove);
+    globalThis.removeEventListener('mouseup', onMouseUp);
+};
+
+
+canvasSketch(sketch, settings);
+
+class Point{
+    constructor(x,y, control = false){
+        this.x = x;
+        this.y = y;
+        this.control = control;
+    }
+
+    draw(context){
+        context.save();
+        context.translate(this.x, this.y);
+        context.beginPath();
+        context.arc(0, 0, 10, 0, Math.PI * 2);
+        context.fillStyle = this.control ? 'red' : 'black';
+        context.fill();
+        context.restore();
+    }
+
+    hitTest(x,y){
+        const dx = this.x - x;
+        const dy = this.y - y;
+       return Math.sqrt(dx * dx + dy * dy) < 20;
+    }
+
+}

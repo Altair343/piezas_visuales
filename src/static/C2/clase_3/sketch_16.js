@@ -1,17 +1,14 @@
 import canvasSketch from 'canvas-sketch';
 import utils from 'canvas-sketch-util';
-import colormap from 'colormap';
 
 const settings = {
     dimensions: [ 1080, 1080 ],
-    animate:true,
-    // fps:60
+    animate:true
 };
 
-
 const sketch = ({ context, width, height }) => {
-    const cols = 70;
-    const rows = 8;
+    const cols = 12;
+    const rows = 6;
     const numCells = cols * rows;
 
     // Grid
@@ -24,32 +21,21 @@ const sketch = ({ context, width, height }) => {
     const marginX = (width - gridW) * 0.5;
     const marginY = (height - gridH) * 0.5;
 
-    let x, y, n, lineWidth, color;
+    let x, y, n;
     const points = [];
-    let frequency = 0.009;
-    let amplitude = 70;
-
-    const colors = colormap({
-        colormap: 'summer',
-        nshades: amplitude,
-        format: 'hex',
-        alpha: 1
-    })
+    let frequency = 0.002;
+    let amplitude = 90;
 
     for(let i = 0; i < numCells; i++){
         x = (i % cols * cellW);
         y  = Math.floor(i / cols) * cellH;
-
         n = utils.random.noise2D(x, y, frequency, amplitude);
-        // x += n
-        // y += n
-
-        lineWidth = utils.math.mapRange(n, -amplitude, amplitude, 0, 5);
-        color = colors[Math.floor(utils.math.mapRange(n, -amplitude, amplitude, 0, amplitude))];
-        points.push(new Point(x,y, lineWidth, color));
+        x += n
+        y += n
+        points.push(new Point(x,y));
     }
 
-    return ({ context, width, height, frame }) => {
+    return ({ context, width, height }) => {
         context.fillStyle = 'black';
         context.fillRect(0, 0, width, height);
 
@@ -59,15 +45,6 @@ const sketch = ({ context, width, height }) => {
         context.strokeStyle = 'blue';
         context.lineWidth = 4;
 
-        // update points
-        points.forEach(point => {
-            const n = utils.random.noise2D(point.ix + frame, point.iy, frequency, amplitude);
-            point.x = point.ix + n;
-            point.y = point.iy + n;
-        });
-
-        let lastX, lastY;
-
         // Draw Lines
         for (let r = 0; r < rows; r++){
             for(let c = 0; c < cols-1; c++){
@@ -75,21 +52,14 @@ const sketch = ({ context, width, height }) => {
                 const current = points[r * cols + c + 0];
                 const next = points[r * cols + c + 1];
                 
-                const midX = current.x + (next.x - current.x) * 0.8;
-                const midY = current.y + (next.y - current.y) * 4.4;
+                const midX = current.x + (next.x - current.x) * 0.5;
+                const midY = current.y + (next.y - current.y) * 0.5;
                 
-                if (c === 0){
-                    lastX = current.x;
-                    lastY = current.y;
-                }
                 context.beginPath();
-                context.lineWidth = current.lineWidth;
-                context.strokeStyle = current.color;
-                context.moveTo(lastX,lastY);
-                context.quadraticCurveTo(current.x, current.y, midX, midY);
+                if(c === 0)context.moveTo(current.x, current.y);
+                else if(c == cols - 2) context.quadraticCurveTo(current.x, current.y, next.x, next.y);
+                else context.quadraticCurveTo(current.x, current.y, midX, midY);
                 context.stroke();
-                lastX = midX - c / cols * 250;
-                lastY = midY - r / rows * 250;
             }
         }
         // Draw points
@@ -101,14 +71,9 @@ const sketch = ({ context, width, height }) => {
 canvasSketch(sketch, settings);
 
 class Point{
-    constructor(x,y, lineWidth, color){
+    constructor(x,y){
         this.x = x;
         this.y = y;
-        this.lineWidth = lineWidth;
-        this.color = color;
-
-        this.ix = x;
-        this.iy = y;
     }
 
     draw(context){
@@ -116,7 +81,7 @@ class Point{
         context.translate(this.x, this.y);
         context.beginPath();
         context.arc(0, 0, 10, 0, Math.PI * 2);
-        context.fillStyle = 'red';
+        context.fillStyle = 'blue';
         context.fill();
         context.restore();
     }

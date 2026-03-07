@@ -4,8 +4,7 @@ import colormap from 'colormap';
 
 const settings = {
     dimensions: [ 1080, 1080 ],
-    animate:true,
-    // fps:60
+    animate:true
 };
 
 
@@ -49,7 +48,7 @@ const sketch = ({ context, width, height }) => {
         points.push(new Point(x,y, lineWidth, color));
     }
 
-    return ({ context, width, height, frame }) => {
+    return ({ context, width, height }) => {
         context.fillStyle = 'black';
         context.fillRect(0, 0, width, height);
 
@@ -58,13 +57,6 @@ const sketch = ({ context, width, height }) => {
         context.translate(cellW * 0.5, cellH * 0.5);
         context.strokeStyle = 'blue';
         context.lineWidth = 4;
-
-        // update points
-        points.forEach(point => {
-            const n = utils.random.noise2D(point.ix + frame, point.iy, frequency, amplitude);
-            point.x = point.ix + n;
-            point.y = point.iy + n;
-        });
 
         let lastX, lastY;
 
