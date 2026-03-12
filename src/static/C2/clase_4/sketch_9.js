@@ -47,8 +47,7 @@ const sketch = ({ context, width, height }) => {
 
         context.save();
         context.translate(width * 0.5, height  * 0.5);
-        context.scale(1, -1);
-
+        context.rotate(frame * 0.01);
         let creadius = radius;
         for (let i = 0; i < numCircles; i++) {
             context.save();

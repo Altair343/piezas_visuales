@@ -86,5 +86,30 @@ Lección "Animación"
 
 ### Clase 5
 
+Lección "Presionando Play"
+- https://artlist.io/
+- https://artlist.io/royalty-free-music/song/big-city-lights/41666
+- https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_codecs
+- https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay
+
+Lección "Analizador"
+- https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+- https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/frequencyBinCount
+- https://github.com/mattdesl/canvas-sketch/blob/master/docs/api.md#sketchmanager
+
+Lección "Frecuencias"
+- https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getFloatFrequencyData
+- https://stackoverflow.com/questions/35799286/get-logarithmic-bytefrequencydata-from-audio/43369065#43369065
+- https://intelligentsoundengineering.wordpress.com/2016/01/04/why-44-1-khz/
+
+Lección "Arcos"
+- https://a-mushtaq1114-dc.blogspot.com/2013/09/jessica-svendsen-100-days-muller.html
+- https://cubic-bezier.com/#0,0,1,1
+- https://robertpenner.com/easing/
+- https://www.npmjs.com/package/eases
+
+Lección "Creación de un póster"
+- http://www.designishistory.com/1940/joseph-mueller-brockmann/
+
 ### Clase 6
 

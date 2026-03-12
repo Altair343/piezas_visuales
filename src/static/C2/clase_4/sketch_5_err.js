@@ -14,28 +14,23 @@ let minDb, maxDb;
 
 const sketch = ({ context, width, height }) => {
     const numCircles = 5;
-    const numSlices = 1;
+    const numSlices = 9;
     const slice = Math.PI * 2 / numSlices;
     const radius = 200;
 
     const bins = [];
     const lineWidths = [];
-    const rotationOffsets = [];
-    let  lineWidth, bin, mapped, phi;
+    let  lineWidth, bin, mapped;
 
-    for (let i = 0; i < numCircles * numSlices; i++) {
+    for (let i = 0; i < numCircles; i++) {
         bin = utils.random.rangeFloor(4,64);
         bins.push(bin);
     }
 
     for (let i = 0; i < numCircles; i++) {
-        const t = i / (numCircles - 1)
-        lineWidth = eases.quadIn(t) * 200 + 10;
+        let t = i / (numCircles - 1)
+        lineWidth = eases.quadIn(t) * 200 + 20;
         lineWidths.push(lineWidth);
-    }
-
-    for (let i = 0; i < numCircles; i++) {
-        rotationOffsets.push(utils.random.range( Math.PI * -0.25, Math.PI * 0.25) - Math.PI * 0.5);
     }
 
     return ({ context, width, height, frame }) => {
@@ -47,31 +42,25 @@ const sketch = ({ context, width, height }) => {
 
         context.save();
         context.translate(width * 0.5, height  * 0.5);
-        context.scale(1, -1);
-
         let creadius = radius;
         for (let i = 0; i < numCircles; i++) {
             context.save();
-            context.rotate(rotationOffsets[i]);
-
-
-            creadius += lineWidths[i] * 0.5 + 2;
-
             for (let j = 0; j < numSlices; j++) {
                 context.rotate(slice);
                 context.lineWidth = lineWidths[i];
 
                 bin = bins[i * numSlices + j];
                 mapped = utils.math.mapRange(audioData[bin], minDb, maxDb, 0, 1, true);
-                phi = slice * mapped;
+                lineWidth = lineWidths[i] * mapped;
+                context.lineWidth = lineWidth;
 
                 context.beginPath();
-                context.arc(0, 0, creadius, 0, phi);
+                context.arc(0, 0, creadius + context.lineWidth * 0.5, 0, slice);
                 context.strokeStyle = 'black';
                 context.stroke();
 
             }
-            creadius += lineWidths[i] * 0.5;
+            creadius += lineWidths[i];
             context.restore();
         }
         context.restore();
