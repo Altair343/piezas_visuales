@@ -113,3 +113,22 @@ Lección "Creación de un póster"
 
 ### Clase 6
 
+Lección "Dibujar una sola partícula"
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+
+Lección "Aplicación de fuerzas"
+- https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+- https://www.mathsisfun.com/pythagoras.html
+
+Lección "Distribución de las Partículas"
+- https://github.com/mattdesl/canvas-sketch-util/blob/master/docs/random.md
+- https://paulmcneil.co.uk/
+- https://uk.pinterest.com/pin/390054017738507521/
+
+Lección "Modificación de escala y colores"
+- https://github.com/bpostlethwaite/colormap
+
+Lección "Datos de imagen"
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/getImageData
+- https://unsplash.com/pt-br
